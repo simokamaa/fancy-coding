@@ -12,6 +12,8 @@ message for a random time interval(Choose appropriate upper and lower limits).Ea
 b) Additional to node failures, Messages might get lost(simulated by executing any send operation with a certain probabilities e.g 95%)
 Make sure to apply all this possible failure to all messages send
 
+- Ricart-agrawala algorithm
+
 
 
 1. Decentralized Mutual Exclusion Algorithm:
@@ -44,3 +46,38 @@ Make sure to apply all this possible failure to all messages send
 To implement this, you'll likely need a distributed algorithm for mutual exclusion, such as the Ricart-Agrawala algorithm, Maekawa's algorithm, or another appropriate algorithm for your specific requirements. These algorithms typically involve communication between nodes to coordinate access and handle failures.
 
 Remember to consider issues like message delays, node crashes, and network partitions when designing your system. Implementing fault tolerance mechanisms, such as timeouts and retries, will be crucial to achieving a resilient decentralized access system.
+
+To address the specified failure scenarios in a decentralized mutual exclusion algorithm, you need to incorporate mechanisms to handle node failures and lost messages. Here's a high-level explanation of how you might approach this:
+
+### Node Failures:
+
+a) Fail-Stop Failures:
+   - Each node should have a probability of failing over a given interval. Let's say the probability of a node failing after 30 seconds is 90%.
+   - A failed node should go silent and not produce or process any messages for a random time interval. You can define an upper and lower limit for this interval. For example, the node might stay silent for a random time between 1 minute and 5 minutes.
+   - This silent period simulates the downtime of a failed node, during which it cannot participate in the mutual exclusion algorithm.
+
+Handling Failures:
+   - Implement a failure detection mechanism. Nodes can periodically exchange heartbeat messages to check if other nodes are still alive.
+   - If a node doesn't receive a heartbeat from another node within a certain timeout period, it can consider that node as failed.
+   - When a node detects a failure, it should exclude the failed node from the mutual exclusion algorithm until it comes back online.
+
+b) Independent Failures:
+   - Since failures are independent, it's possible for multiple nodes to fail simultaneously.
+   - When a node detects a failure, it should handle it and continue the execution of the mutual exclusion algorithm with the remaining nodes.
+
+### Message Loss:
+
+a) Lost Messages:
+   - Simulate message loss by executing any send operation with a certain probability. For example, there's a 95% probability that a message might be lost during transmission.
+   - Implement acknowledgment mechanisms to ensure that the sender knows whether a message was successfully received by the recipient.
+
+Handling Message Loss:
+   - If a node doesn't receive an acknowledgment within a specified timeout period, it should consider the message as lost and resend it.
+   - Ensure idempotence in your message handling to handle cases where a message is received multiple times.
+
+### Overall:
+
+   - Design your decentralized mutual exclusion algorithm to be fault-tolerant. This may involve adding redundancy, using consensus mechanisms, and carefully considering the impact of failures on the correctness of the algorithm.
+   - Implement appropriate logging and monitoring to help detect and diagnose failures during both node failures and message losses.
+
+By incorporating these mechanisms, your decentralized mutual exclusion algorithm can handle both node failures and message losses, providing a more robust and reliable system.
