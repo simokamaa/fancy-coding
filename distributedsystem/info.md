@@ -43,11 +43,6 @@ Make sure to apply all this possible failure to all messages send
 7. Guarantee Exclusive Access in Failure Scenarios:
    - This means that even if some nodes fail or the network experiences issues, the system should still prevent multiple nodes from accessing the critical section simultaneously.
 
-To implement this, you'll likely need a distributed algorithm for mutual exclusion, such as the Ricart-Agrawala algorithm, Maekawa's algorithm, or another appropriate algorithm for your specific requirements. These algorithms typically involve communication between nodes to coordinate access and handle failures.
-
-Remember to consider issues like message delays, node crashes, and network partitions when designing your system. Implementing fault tolerance mechanisms, such as timeouts and retries, will be crucial to achieving a resilient decentralized access system.
-
-To address the specified failure scenarios in a decentralized mutual exclusion algorithm, you need to incorporate mechanisms to handle node failures and lost messages. Here's a high-level explanation of how you might approach this:
 
 ### Node Failures:
 
@@ -75,9 +70,5 @@ Handling Message Loss:
    - If a node doesn't receive an acknowledgment within a specified timeout period, it should consider the message as lost and resend it.
    - Ensure idempotence in your message handling to handle cases where a message is received multiple times.
 
-### Overall:
 
-   - Design your decentralized mutual exclusion algorithm to be fault-tolerant. This may involve adding redundancy, using consensus mechanisms, and carefully considering the impact of failures on the correctness of the algorithm.
-   - Implement appropriate logging and monitoring to help detect and diagnose failures during both node failures and message losses.
-
-By incorporating these mechanisms, your decentralized mutual exclusion algorithm can handle both node failures and message losses, providing a more robust and reliable system.
+![Alt text](image.png)

@@ -3,6 +3,9 @@ import time
 import random
 from queue import Queue
 
+# Ricart-agrawala algrothim ------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------
+
 class RicartAgrawalaNode:
     def __init__(self, node_id, total_nodes):
         self.node_id = node_id
@@ -12,8 +15,8 @@ class RicartAgrawalaNode:
         self.mutex = threading.Lock()
         self.requesting_cs = False
         self.heartbeat_interval = 5
-        self.failure_probability = 0.1  # Adjusted for a more realistic scenario
-        self.message_loss_probability = 0.05  # Adjusted for a more realistic scenario
+        self.failure_probability = 0.1  # A more closer realistic value
+        self.message_loss_probability = 0.05  # This is a more realistic value
         self.request_queue = Queue()
 
     def send_message(self, recipient, message):
